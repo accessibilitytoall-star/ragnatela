@@ -509,6 +509,12 @@ function caricaConsumi(){
     }).catch(function(){ el.innerHTML='<p class="vuoto">Non riesco a leggere i consumi adesso.</p>'; });
 }
 
+function ordinaCategoria(c){
+  if(c==='Pianificazione') return 0;
+  if(c==='Social') return 1;
+  return 2;
+}
+
 function caricaReport(){
   var el=document.getElementById('report-elenco');
   fetch(SUPA+'/rest/v1/rag_report?select=*&order=creato_il.desc',{headers:H()})
@@ -516,22 +522,34 @@ function caricaReport(){
     .then(function(righe){
       righe=righe||[];
       if(!righe.length){ el.innerHTML='<p class="vuoto">Nessun report ancora.</p>'; return; }
-      var gruppi={}, chiavi=[];
+      var settimane={}, listaSettimane=[];
       righe.forEach(function(r){
-        var k=(r.agente||'—')+'|'+(r.settimana||'—');
-        if(!gruppi[k]){ gruppi[k]=[]; chiavi.push(k); }
-        gruppi[k].push(r);
+        var s=r.settimana||'—';
+        if(!settimane[s]){ settimane[s]=[]; listaSettimane.push(s); }
+        settimane[s].push(r);
       });
-      chiavi.sort(function(a,b){ return b.split('|')[1].localeCompare(a.split('|')[1]); });
+      listaSettimane.sort(function(a,b){ return b.localeCompare(a); });
       var html='';
-      chiavi.forEach(function(k,i){
-        var parti=k.split('|'), agente=parti[0], settimana=parti[1];
+      listaSettimane.forEach(function(s,i){
+        var categorie={}, listaCategorie=[];
+        settimane[s].forEach(function(r){
+          var c=r.categoria||'Social';
+          if(!categorie[c]){ categorie[c]=[]; listaCategorie.push(c); }
+          categorie[c].push(r);
+        });
+        listaCategorie.sort(function(a,b){
+          var oa=ordinaCategoria(a), ob=ordinaCategoria(b);
+          return oa!==ob ? oa-ob : a.localeCompare(b);
+        });
         html+='<details class="card"'+(i===0?' open':'')+'><summary style="cursor:pointer;font-size:17px;font-weight:700">'+
-          esc(agente)+' · '+esc(settimana)+'</summary>'+
-          '<ul style="margin:8px 0 0;padding-left:20px">'+
-          gruppi[k].map(function(r){
-            return '<li><a href="'+esc(r.url)+'" target="_blank" rel="noopener">'+esc(r.canale||r.titolo)+'</a></li>';
-          }).join('')+'</ul></details>';
+          esc(s)+'</summary><div style="margin:8px 0 0;padding-left:8px">'+
+          listaCategorie.map(function(c,j){
+            return '<details'+(j===0?' open':'')+' style="margin:6px 0"><summary style="cursor:pointer;font-weight:600">'+
+              esc(c)+'</summary><ul style="margin:6px 0 0;padding-left:20px">'+
+              categorie[c].map(function(r){
+                return '<li><a href="'+esc(r.url)+'" target="_blank" rel="noopener">'+esc(r.canale||r.titolo)+'</a></li>';
+              }).join('')+'</ul></details>';
+          }).join('')+'</div></details>';
       });
       el.innerHTML=html;
     }).catch(function(){ el.innerHTML='<p class="vuoto">Non riesco a leggere i report adesso.</p>'; });

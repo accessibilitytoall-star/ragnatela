@@ -1,0 +1,514 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#2E86FF">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-title" content="Ragnatela">
+<link rel="manifest" href="manifest.json">
+<title>Ragnatela — cosa aspetta te</title>
+<style>
+:root{
+  --beige:#EFE3C7; --blu:#2E86FF; --arancio:#FF7A1A;
+  --giallo:#FFE500; --fucsia:#FF2EA6; --grigio:#C6CFDB;
+  --bordo:#1a1a1a;
+}
+*{box-sizing:border-box; -webkit-tap-highlight-color:transparent}
+html{-webkit-text-size-adjust:100%}
+body{
+  margin:0; background:#fff; color:#000;
+  font-family:-apple-system,"Trebuchet MS",Verdana,sans-serif;
+  font-size:17px; line-height:1.55;
+  padding:0 16px calc(120px + env(safe-area-inset-bottom));
+  padding-top:env(safe-area-inset-top);
+}
+main{max-width:720px;margin:0 auto}
+.skip{position:absolute;left:-9999px}
+.skip:focus{left:8px;top:8px;background:#fff;padding:10px;z-index:99;border:3px solid var(--blu)}
+
+/* 2 · il numero grande, leggibile a braccio teso */
+.conta{padding:26px 0 6px;margin:0;font-weight:400}
+.conta b{display:block;font-size:64px;line-height:1;font-weight:700}
+.conta span{display:block;font-size:19px;margin-top:4px;font-weight:400}
+
+.segnale{
+  border:2px solid var(--bordo); border-radius:14px;
+  padding:16px; margin:14px 0; position:relative;
+  overflow:hidden; touch-action:pan-y;
+}
+.testa{display:flex;align-items:flex-start;gap:12px}
+.icona{font-size:34px;line-height:1;flex-shrink:0}
+.chi{font-size:15px;font-weight:700;margin:0}
+.che{font-size:19px;font-weight:700;margin:2px 0 0}
+.msg{font-size:16px;margin:8px 0 0}
+.eti{
+  display:inline-block;margin-top:10px;padding:3px 12px;
+  border:2px solid var(--bordo);border-radius:999px;
+  font-size:14px;font-weight:700;background:#fff;color:#000;
+}
+.suggerimento{font-size:14px;margin:10px 0 0;opacity:.85}
+
+/* 11 · bottoni grandi, nella metà bassa, raggiungibili col pollice */
+.azioni{
+  position:sticky; bottom:0; z-index:20;
+  background:#fff; border-top:2px solid var(--bordo);
+  padding:12px 16px calc(12px + env(safe-area-inset-bottom));
+  margin:0 -16px; display:flex; gap:10px;
+}
+.azioni button{
+  flex:1; min-height:56px; font-size:18px; font-weight:700;
+  border:2px solid var(--bordo); border-radius:14px;
+  background:#fff; color:#000; font-family:inherit;
+}
+.azioni button.si{background:var(--blu)}
+.azioni button:active{transform:scale(.97)}
+
+.riga-ok{
+  display:flex;align-items:center;gap:14px;background:var(--blu);
+  border:2px solid var(--bordo);border-radius:14px;padding:18px 16px;margin:14px 0;
+}
+.riga-ok p{margin:0;font-size:19px;font-weight:700}
+
+.annulla{
+  position:sticky;bottom:90px;z-index:30;
+  background:var(--beige);border:2px solid var(--bordo);border-radius:14px;
+  padding:12px 14px;display:none;align-items:center;justify-content:space-between;gap:12px;
+}
+.annulla button{min-height:44px;padding:0 16px;font-size:16px;font-weight:700;
+  border:2px solid var(--bordo);border-radius:10px;background:#fff;color:#000;font-family:inherit}
+
+.avviso{border:2px solid var(--bordo);border-radius:14px;padding:14px;margin:14px 0;background:var(--beige)}
+.avviso p{margin:0;font-size:16px}
+.tira{text-align:center;font-size:14px;padding:8px 0;min-height:26px}
+footer{margin-top:26px;border-top:2px solid var(--grigio);padding-top:14px;font-size:14px}
+footer a{color:#000}
+.login{max-width:420px;margin:40px auto}
+.login label{display:block;font-size:16px;font-weight:700;margin:14px 0 4px}
+.login input{width:100%;min-height:52px;font-size:17px;padding:0 12px;
+  border:2px solid var(--bordo);border-radius:12px;font-family:inherit;color:#000;background:#fff}
+.login button{width:100%;min-height:56px;margin-top:18px;font-size:18px;font-weight:700;
+  border:2px solid var(--bordo);border-radius:14px;background:var(--blu);color:#000;font-family:inherit}
+:focus-visible{outline:4px solid var(--fucsia);outline-offset:3px}
+
+/* tab: Approva / Squadra / Consumi */
+.tabs{display:flex;gap:8px;margin:14px 0 4px;border-bottom:2px solid var(--bordo);padding-bottom:0}
+.tab{flex:1;min-height:48px;font-size:15px;font-weight:700;border:2px solid var(--bordo);
+  border-bottom:none;border-radius:12px 12px 0 0;background:#fff;color:#000;font-family:inherit}
+.tab[aria-selected="true"]{background:var(--blu)}
+.pannello{padding-top:14px}
+.card{border:2px solid var(--bordo);border-radius:14px;padding:14px 16px;margin:12px 0;background:#fff}
+.card h2{font-size:17px;margin:0 0 4px}
+.card .riga{font-size:15px;margin:4px 0}
+.card .eti{display:inline-block;margin-top:8px;padding:2px 10px;border:2px solid var(--bordo);
+  border-radius:999px;font-size:13px;font-weight:700;background:#fff;color:#000}
+.card .allarme{font-weight:700}
+.tot{font-size:19px;font-weight:700;margin:10px 0}
+.vuoto{font-size:15px;opacity:.8}
+
+/* 18 · il testo cresce con le impostazioni del telefono senza rompere i riquadri */
+@media (min-width:0px){ .segnale,.riga-ok{word-break:break-word} }
+@media (prefers-reduced-motion:reduce){ *{transition:none!important;animation:none!important} }
+</style>
+</head>
+<body>
+<a class="skip" href="#dentro">Salta al contenuto</a>
+<main id="dentro">
+
+<div id="zona-login" class="login" hidden>
+  <h1 style="font-size:24px">Ragnatela</h1>
+  <p>Entra per vedere cosa aspetta te.</p>
+  <label for="em">Email</label>
+  <input id="em" type="email" autocomplete="username" inputmode="email">
+  <label for="pw">Password</label>
+  <input id="pw" type="password" autocomplete="current-password">
+  <button id="entra">Entra</button>
+  <p id="err-login" role="alert" style="font-weight:700"></p>
+</div>
+
+<div id="zona-app" hidden>
+
+  <div class="tabs" role="tablist" aria-label="Sezioni del cruscotto">
+    <button class="tab" id="tab-approva" role="tab" aria-selected="true" aria-controls="pannello-approva">Approva</button>
+    <button class="tab" id="tab-squadra" role="tab" aria-selected="false" aria-controls="pannello-squadra">Squadra</button>
+    <button class="tab" id="tab-consumi" role="tab" aria-selected="false" aria-controls="pannello-consumi">Consumi</button>
+  </div>
+
+  <div id="pannello-approva" class="pannello" role="tabpanel" aria-labelledby="tab-approva">
+    <p class="tira" id="tira" aria-live="polite">Tira giù per aggiornare</p>
+
+    <h1 class="conta">
+      <b id="numero" aria-hidden="true">—</b>
+      <span id="numero-parole">Sto guardando…</span>
+    </h1>
+
+    <div id="elenco"></div>
+
+    <div class="annulla" id="annulla" role="status">
+      <span id="annulla-testo"></span>
+      <button id="annulla-btn">Annulla</button>
+    </div>
+
+    <div class="avviso" id="offline" hidden>
+      <p><strong>Sei senza rete.</strong> Questo è l'ultimo stato che ho salvato, del <span id="quando-salvato"></span>.</p>
+    </div>
+
+    <footer>
+      <p><a href="#" id="apri-archivio">Cosa ho già deciso</a> · <a href="#" id="attiva-push">Avvisami sul telefono</a></p>
+      <p id="stato-push"></p>
+      <div id="archivio" hidden></div>
+    </footer>
+  </div>
+
+  <div id="pannello-squadra" class="pannello" role="tabpanel" aria-labelledby="tab-squadra" hidden>
+    <h1 style="font-size:22px;margin:10px 0">Chi lavora, e cosa ha prodotto</h1>
+    <div id="squadra-elenco"><p class="vuoto">Sto guardando…</p></div>
+  </div>
+
+  <div id="pannello-consumi" class="pannello" role="tabpanel" aria-labelledby="tab-consumi" hidden>
+    <h1 style="font-size:22px;margin:10px 0">Token consumati</h1>
+    <div id="consumi-elenco"><p class="vuoto">Sto guardando…</p></div>
+  </div>
+
+</div>
+
+<div class="azioni" id="azioni" hidden>
+  <button id="btn-no">Rimanda</button>
+  <button id="btn-si" class="si">Approva</button>
+</div>
+
+</main>
+<script>
+var SUPA='https://svrcjtnjuzqiepzgcfud.supabase.co';
+var SKEY='sb_publishable_C4EZ54RQ0HZs_udEeJLODg_vhfBJwth';
+var AUTH=null, DATI=[], IN_CIMA=null, TIMER=null, ULTIMO=null;
+
+try{ var g=localStorage.getItem('ragnatela-auth'); if(g) AUTH=JSON.parse(g); }catch(e){}
+try{ var c=localStorage.getItem('ragnatela-cache'); if(c) ULTIMO=JSON.parse(c); }catch(e){}
+
+function H(){ return {'apikey':SKEY,
+  'Authorization':'Bearer '+((AUTH&&AUTH.access_token)||SKEY),
+  'Content-Type':'application/json'}; }
+
+function mostra(id,si){ var e=document.getElementById(id); if(e) e.hidden=!si; }
+
+function entra(email,pwd){
+  return fetch(SUPA+'/auth/v1/token?grant_type=password',{method:'POST',
+    headers:{'apikey':SKEY,'Content-Type':'application/json'},
+    body:JSON.stringify({email:email,password:pwd})})
+  .then(function(r){return r.json();})
+  .then(function(d){
+    if(d&&d.access_token){
+      AUTH={access_token:d.access_token,refresh_token:d.refresh_token};
+      try{ localStorage.setItem('ragnatela-auth',JSON.stringify(AUTH)); }catch(e){}
+      return null;
+    }
+    return (d&&(d.error_description||d.msg||d.message))||'Email o password non validi.';
+  })
+  .catch(function(){ return 'Non riesco a raggiungere il server: controlla la connessione.'; });
+}
+
+function ordina(a,b){
+  var p={'scaduto':1,'urgente':2,'attesa':3,'nuovo':4};
+  return (p[a.tono]||9)-(p[b.tono]||9) || new Date(a.creato_il)-new Date(b.creato_il);
+}
+
+function carica(){
+  return fetch(SUPA+'/rest/v1/rag_cruscotto?select=*',{headers:H()})
+    .then(function(r){ if(!r.ok) throw new Error(r.status); return r.json(); })
+    .then(function(d){
+      DATI=(d||[]).sort(ordina);
+      try{ localStorage.setItem('ragnatela-cache',
+        JSON.stringify({quando:new Date().toISOString(),dati:DATI})); }catch(e){}
+      mostra('offline',false);
+      disegna();
+      badge(DATI.length);
+    })
+    .catch(function(){
+      if(ULTIMO){ DATI=ULTIMO.dati||[];
+        document.getElementById('quando-salvato').textContent=
+          new Date(ULTIMO.quando).toLocaleString('it-IT');
+        mostra('offline',true); disegna(); }
+    });
+}
+
+function parole(n){
+  if(n===0) return 'Nessun agente ha bisogno di te';
+  if(n===1) return 'cosa aspetta te';
+  return 'cose aspettano te';
+}
+
+function disegna(){
+  var el=document.getElementById('elenco'); el.innerHTML='';
+  document.getElementById('numero').textContent=DATI.length;
+  document.getElementById('numero-parole').textContent=
+    (DATI.length? DATI.length+' '+parole(DATI.length) : parole(0));
+
+  if(!DATI.length){
+    var ok=document.createElement('div'); ok.className='riga-ok';
+    ok.innerHTML='<span class="icona" aria-hidden="true">✓</span>'+
+      '<p>Tutto in ordine. Nessun agente ha bisogno di te.</p>';
+    el.appendChild(ok); mostra('azioni',false); IN_CIMA=null; return;
+  }
+  IN_CIMA=DATI[0];
+  DATI.forEach(function(s,i){
+    var d=document.createElement('article');
+    d.className='segnale'; d.style.background=s.colore; d.dataset.id=s.id;
+    d.setAttribute('tabindex','0');
+    d.setAttribute('aria-label',
+      s.etichetta+'. '+s.agente+', '+s.titolo+'. '+s.messaggio);
+    var seg='<div class="testa"><span class="icona" aria-hidden="true">'+
+      (s.tono==='attesa'?'⏳':(s.tono==='nuovo'?'✉':'▲'))+'</span><div>'+
+      '<p class="chi">'+esc(s.agente)+(s.agente_ruolo?' · '+esc(s.agente_ruolo):'')+'</p>'+
+      '<p class="che">'+esc(s.titolo)+'</p>'+
+      '<p class="msg">'+esc(s.messaggio)+'</p>'+
+      '<p class="eti">'+esc(s.etichetta)+'</p>';
+    if(i===0) seg+='<p class="suggerimento">Scorri a destra per approvare, a sinistra per rimandare.</p>';
+    seg+='</div></div>';
+    d.innerHTML=seg;
+    scorrimento(d,s);
+    el.appendChild(d);
+  });
+  mostra('azioni',TAB_ATTIVA==='approva');
+  document.getElementById('btn-si').textContent='Approva'+(IN_CIMA?'':'');
+}
+
+function esc(t){ var p=document.createElement('p'); p.textContent=t==null?'':t; return p.innerHTML; }
+
+/* 12 · scorri per decidere, con annulla · 14 · vibrazione alla conferma */
+function scorrimento(nodo,s){
+  var x0=null,dx=0;
+  nodo.addEventListener('touchstart',function(e){ x0=e.touches[0].clientX; dx=0; },{passive:true});
+  nodo.addEventListener('touchmove',function(e){
+    if(x0===null) return; dx=e.touches[0].clientX-x0;
+    if(Math.abs(dx)>10) nodo.style.transform='translateX('+(dx*0.6)+'px)';
+  },{passive:true});
+  nodo.addEventListener('touchend',function(){
+    nodo.style.transform='';
+    if(dx>90) decidi(s,'approvato'); else if(dx<-90) decidi(s,'rimandato');
+    x0=null; dx=0;
+  });
+}
+
+function vibra(ms){ if(navigator.vibrate) navigator.vibrate(ms); }
+
+var SOSPESO=null;
+function decidi(s,esito){
+  vibra(esito==='approvato'?[18]:[10,40,10]);
+  DATI=DATI.filter(function(x){ return x.id!==s.id; });
+  disegna(); badge(DATI.length);
+  var box=document.getElementById('annulla');
+  document.getElementById('annulla-testo').textContent=
+    (esito==='approvato'?'Approvato':'Rimandato')+': '+s.titolo;
+  box.style.display='flex';
+  clearTimeout(TIMER);
+  SOSPESO={s:s,esito:esito};
+  TIMER=setTimeout(function(){ conferma(); },5000);
+}
+
+function conferma(){
+  var box=document.getElementById('annulla'); box.style.display='none';
+  if(!SOSPESO) return;
+  var p=SOSPESO; SOSPESO=null;
+  fetch(SUPA+'/rest/v1/rpc/rag_decidi',{method:'POST',headers:H(),
+    body:JSON.stringify({p_id:p.s.id,p_esito:p.esito})})
+   .then(function(){ carica(); })
+   .catch(function(){ DATI.push(p.s); DATI.sort(ordina); disegna(); });
+}
+
+document.getElementById('annulla-btn').addEventListener('click',function(){
+  clearTimeout(TIMER);
+  document.getElementById('annulla').style.display='none';
+  if(SOSPESO){ DATI.push(SOSPESO.s); DATI.sort(ordina); SOSPESO=null; disegna(); badge(DATI.length); }
+  vibra(8);
+});
+
+document.getElementById('btn-si').addEventListener('click',function(){ if(IN_CIMA) decidi(IN_CIMA,'approvato'); });
+document.getElementById('btn-no').addEventListener('click',function(){ if(IN_CIMA) decidi(IN_CIMA,'rimandato'); });
+
+/* 13 · tira giù per aggiornare */
+var y0=null;
+document.addEventListener('touchstart',function(e){
+  if(window.scrollY===0) y0=e.touches[0].clientY;
+},{passive:true});
+document.addEventListener('touchmove',function(e){
+  if(y0===null) return;
+  var dy=e.touches[0].clientY-y0;
+  if(dy>70){ document.getElementById('tira').textContent='Aggiorno…'; y0=null;
+    carica().then(function(){ document.getElementById('tira').textContent='Aggiornato'; vibra(8);
+      setTimeout(function(){ document.getElementById('tira').textContent='Tira giù per aggiornare'; },1500); }); }
+},{passive:true});
+document.addEventListener('touchend',function(){ y0=null; },{passive:true});
+
+/* 10 · il numero sull'icona dell'app */
+function badge(n){
+  if('setAppBadge' in navigator){
+    if(n>0) navigator.setAppBadge(n).catch(function(){});
+    else navigator.clearAppBadge().catch(function(){});
+  }
+}
+
+/* 6 e 8 · le notifiche vere: chiede il permesso, si iscrive al push, salva l'iscrizione */
+var VAPID_PUBLIC_KEY='BMVsY_qWLRp0IDr4qZdL2I39nhUEWPCfJHEJLiifHwfdV5lWyvFxZUpPLAusi3Xci6a4tJ_eKOxJglvwS95EVI8';
+
+function urlBase64ToUint8Array(base64String){
+  var padding='='.repeat((4 - base64String.length % 4) % 4);
+  var base64=(base64String+padding).replace(/-/g,'+').replace(/_/g,'/');
+  var raw=atob(base64), out=new Uint8Array(raw.length);
+  for(var i=0;i<raw.length;i++) out[i]=raw.charCodeAt(i);
+  return out;
+}
+
+document.getElementById('attiva-push').addEventListener('click',function(ev){
+  ev.preventDefault();
+  var out=document.getElementById('stato-push');
+  if(!('Notification' in window) || !navigator.serviceWorker || !('PushManager' in window)){
+    out.textContent='Questo telefono non le consente. Aggiungi la pagina alla schermata Home e riprova.'; return;
+  }
+  out.textContent='Sto attivando…';
+  Notification.requestPermission().then(function(p){
+    if(p!=='granted'){
+      out.textContent='Non le hai concesse. Puoi cambiarlo dalle impostazioni di Safari.'; return;
+    }
+    return navigator.serviceWorker.register('sw.js')
+      .then(function(reg){ return reg.pushManager.subscribe({
+        userVisibleOnly:true,
+        applicationServerKey: urlBase64ToUint8Array(VAPID_PUBLIC_KEY)
+      }); })
+      .then(function(sub){
+        var j=sub.toJSON();
+        return fetch(SUPA+'/rest/v1/push_iscrizioni',{method:'POST',
+          headers:Object.assign({},H(),{'Prefer':'resolution=merge-duplicates'}),
+          body:JSON.stringify({
+            endpoint:j.endpoint, p256dh:j.keys.p256dh, auth:j.keys.auth,
+            sottoscrizione:j, dispositivo:navigator.userAgent.slice(0,120), attiva:true
+          })});
+      })
+      .then(function(){ out.textContent='Fatto: da questo telefono arrivano le notifiche vere.'; })
+      .catch(function(err){ out.textContent='Permesso concesso ma l\'iscrizione non è andata a buon fine: riprova tra poco.'; });
+  });
+});
+
+document.getElementById('apri-archivio').addEventListener('click',function(ev){
+  ev.preventDefault();
+  var box=document.getElementById('archivio');
+  if(!box.hidden){ box.hidden=true; return; }
+  box.hidden=false; box.innerHTML='<p>Sto guardando…</p>';
+  fetch(SUPA+'/rest/v1/rag_deciso?select=titolo,agente,decisione,deciso_il&limit=25',{headers:H()})
+   .then(function(r){return r.json();})
+   .then(function(d){
+     if(!d||!d.length){ box.innerHTML='<p>Non hai ancora deciso niente.</p>'; return; }
+     box.innerHTML='<h2 style="font-size:18px">Cosa ho già deciso</h2><ul>'+
+       d.map(function(x){ return '<li>'+esc(x.titolo)+' — <strong>'+esc(x.decisione)+
+         '</strong>, '+(x.deciso_il? new Date(x.deciso_il).toLocaleDateString('it-IT'):'')+
+         ' · '+esc(x.agente)+'</li>'; }).join('')+'</ul>';
+   });
+});
+
+document.getElementById('entra').addEventListener('click',function(){
+  var e=document.getElementById('em').value.trim();
+  var p=document.getElementById('pw').value;
+  var out=document.getElementById('err-login');
+  if(!e||!p){ out.textContent='Scrivi email e password.'; return; }
+  out.textContent='Sto entrando…';
+  entra(e,p).then(function(errore){
+    if(errore){ out.textContent=errore; return; }
+    out.textContent=''; avvia();
+  });
+});
+
+/* Tab: Approva (esistente) · Squadra (rag_v_regia + rag_agente_attivita) · Consumi (consumi_veri) */
+var TAB_ATTIVA='approva';
+var CARICATA_SQUADRA=false, CARICATA_CONSUMI=false;
+
+function mostraTab(nome){
+  TAB_ATTIVA=nome;
+  ['approva','squadra','consumi'].forEach(function(n){
+    mostra('pannello-'+n, n===nome);
+    document.getElementById('tab-'+n).setAttribute('aria-selected', n===nome?'true':'false');
+  });
+  mostra('azioni', nome==='approva' && DATI.length>0);
+  if(nome==='squadra' && !CARICATA_SQUADRA){ CARICATA_SQUADRA=true; caricaSquadra(); }
+  if(nome==='consumi' && !CARICATA_CONSUMI){ CARICATA_CONSUMI=true; caricaConsumi(); }
+}
+document.getElementById('tab-approva').addEventListener('click',function(){ mostraTab('approva'); });
+document.getElementById('tab-squadra').addEventListener('click',function(){ mostraTab('squadra'); });
+document.getElementById('tab-consumi').addEventListener('click',function(){ mostraTab('consumi'); });
+
+function coloreAgente(c){
+  return c==='blu'?'#e6f0ff':(c==='arancio'?'#ffe9d6':(c==='fucsia'?'#ffe0f2':'#f1f4f8'));
+}
+
+function caricaSquadra(){
+  var el=document.getElementById('squadra-elenco');
+  Promise.all([
+    fetch(SUPA+'/rest/v1/rag_v_regia?select=*&order=chi.asc',{headers:H()}).then(function(r){return r.json();}),
+    fetch(SUPA+'/rest/v1/rag_agente_attivita?select=agente_nome,cosa_faceva,esito,iniziata_il&order=iniziata_il.desc&limit=50',{headers:H()}).then(function(r){return r.json();})
+  ]).then(function(res){
+    var agenti=res[0]||[], attivita=res[1]||[];
+    if(!agenti.length){ el.innerHTML='<p class="vuoto">Nessun agente registrato ancora.</p>'; return; }
+    el.innerHTML='';
+    agenti.forEach(function(a){
+      var ultime=attivita.filter(function(x){ return x.agente_nome===a.chi; }).slice(0,3);
+      var d=document.createElement('article'); d.className='card';
+      d.style.background=coloreAgente(a.colore);
+      var html='<h2>'+esc(a.chi)+'</h2>'+
+        '<p class="riga">'+esc(a.cosa_fa||'')+'</p>'+
+        '<p class="riga">'+(a.cosa_fa_ora? 'Ora: '+esc(a.cosa_fa_ora) : 'Non sta lavorando in questo momento')+'</p>'+
+        (a.allarme? '<p class="riga allarme">⚠ '+esc(a.allarme)+'</p>' : '')+
+        '<span class="eti">'+esc(a.etichetta||a.ultimo_esito||'—')+'</span>';
+      if(ultime.length){
+        html+='<p class="riga" style="margin-top:10px"><strong>Ultimo prodotto:</strong></p><ul style="margin:4px 0;padding-left:20px">'+
+          ultime.map(function(u){ return '<li>'+esc(u.cosa_faceva||'')+' — '+esc(u.esito)+
+            (u.iniziata_il? ' · '+new Date(u.iniziata_il).toLocaleString('it-IT'):'')+'</li>'; }).join('')+'</ul>';
+      } else {
+        html+='<p class="riga" style="margin-top:10px;opacity:.8">Non ha ancora prodotto nulla.</p>';
+      }
+      d.innerHTML=html; el.appendChild(d);
+    });
+  }).catch(function(){ el.innerHTML='<p class="vuoto">Non riesco a leggere la squadra adesso.</p>'; });
+}
+
+function caricaConsumi(){
+  var el=document.getElementById('consumi-elenco');
+  fetch(SUPA+'/rest/v1/consumi_veri?select=agente,token_input,token_output,costo_stimato',{headers:H()})
+    .then(function(r){return r.json();})
+    .then(function(righe){
+      righe=righe||[];
+      if(!righe.length){
+        el.innerHTML='<p class="vuoto">Nessun consumo registrato ancora. I numeri arriveranno appena gli agenti inizieranno a lavorare davvero (fonte "reale", non di esempio).</p>';
+        return;
+      }
+      var per={}; var totCosto=0, totIn=0, totOut=0;
+      righe.forEach(function(r){
+        var k=r.agente||'—';
+        if(!per[k]) per[k]={token_input:0,token_output:0,costo:0};
+        per[k].token_input+=r.token_input||0;
+        per[k].token_output+=r.token_output||0;
+        per[k].costo+=Number(r.costo_stimato||0);
+        totCosto+=Number(r.costo_stimato||0); totIn+=r.token_input||0; totOut+=r.token_output||0;
+      });
+      var nomi=Object.keys(per).sort(function(a,b){ return per[b].costo-per[a].costo; });
+      var html='<p class="tot">Totale rete: '+(totIn+totOut).toLocaleString('it-IT')+' token · '+totCosto.toFixed(2)+' € stimati</p>';
+      nomi.forEach(function(n){
+        var c=per[n];
+        html+='<div class="card"><h2>'+esc(n)+'</h2>'+
+          '<p class="riga">'+(c.token_input+c.token_output).toLocaleString('it-IT')+' token totali ('+
+          c.token_input.toLocaleString('it-IT')+' letti, '+c.token_output.toLocaleString('it-IT')+' scritti)</p>'+
+          '<p class="riga"><strong>'+c.costo.toFixed(2)+' €</strong> stimati</p></div>';
+      });
+      el.innerHTML=html;
+    }).catch(function(){ el.innerHTML='<p class="vuoto">Non riesco a leggere i consumi adesso.</p>'; });
+}
+
+function avvia(){
+  if(!AUTH){ mostra('zona-login',true); mostra('zona-app',false); mostra('azioni',false); return; }
+  mostra('zona-login',false); mostra('zona-app',true);
+  carica();
+  setInterval(carica,120000);
+}
+avvia();
+if(navigator.serviceWorker) navigator.serviceWorker.register('sw.js').catch(function(){});
+</script>
+</body>
+</html>

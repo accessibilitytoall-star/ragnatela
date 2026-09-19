@@ -132,6 +132,7 @@ footer a{color:#000}
     <button class="tab" id="tab-approva" role="tab" aria-selected="true" aria-controls="pannello-approva">Approva</button>
     <button class="tab" id="tab-squadra" role="tab" aria-selected="false" aria-controls="pannello-squadra">Squadra</button>
     <button class="tab" id="tab-consumi" role="tab" aria-selected="false" aria-controls="pannello-consumi">Consumi</button>
+    <button class="tab" id="tab-report" role="tab" aria-selected="false" aria-controls="pannello-report">Report</button>
   </div>
 
   <div id="pannello-approva" class="pannello" role="tabpanel" aria-labelledby="tab-approva">
@@ -168,6 +169,11 @@ footer a{color:#000}
   <div id="pannello-consumi" class="pannello" role="tabpanel" aria-labelledby="tab-consumi" hidden>
     <h1 style="font-size:22px;margin:10px 0">Token consumati</h1>
     <div id="consumi-elenco"><p class="vuoto">Sto guardando…</p></div>
+  </div>
+
+  <div id="pannello-report" class="pannello" role="tabpanel" aria-labelledby="tab-report" hidden>
+    <h1 style="font-size:22px;margin:10px 0">Report degli agenti</h1>
+    <div id="report-elenco"><p class="vuoto">Sto guardando…</p></div>
   </div>
 
 </div>
@@ -419,21 +425,23 @@ document.getElementById('entra').addEventListener('click',function(){
 
 /* Tab: Approva (esistente) · Squadra (rag_v_regia + rag_agente_attivita) · Consumi (consumi_veri) */
 var TAB_ATTIVA='approva';
-var CARICATA_SQUADRA=false, CARICATA_CONSUMI=false;
+var CARICATA_SQUADRA=false, CARICATA_CONSUMI=false, CARICATA_REPORT=false;
 
 function mostraTab(nome){
   TAB_ATTIVA=nome;
-  ['approva','squadra','consumi'].forEach(function(n){
+  ['approva','squadra','consumi','report'].forEach(function(n){
     mostra('pannello-'+n, n===nome);
     document.getElementById('tab-'+n).setAttribute('aria-selected', n===nome?'true':'false');
   });
   mostra('azioni', nome==='approva' && DATI.length>0);
   if(nome==='squadra' && !CARICATA_SQUADRA){ CARICATA_SQUADRA=true; caricaSquadra(); }
   if(nome==='consumi' && !CARICATA_CONSUMI){ CARICATA_CONSUMI=true; caricaConsumi(); }
+  if(nome==='report' && !CARICATA_REPORT){ CARICATA_REPORT=true; caricaReport(); }
 }
 document.getElementById('tab-approva').addEventListener('click',function(){ mostraTab('approva'); });
 document.getElementById('tab-squadra').addEventListener('click',function(){ mostraTab('squadra'); });
 document.getElementById('tab-consumi').addEventListener('click',function(){ mostraTab('consumi'); });
+document.getElementById('tab-report').addEventListener('click',function(){ mostraTab('report'); });
 
 function coloreAgente(c){
   return c==='blu'?'#e6f0ff':(c==='arancio'?'#ffe9d6':(c==='fucsia'?'#ffe0f2':'#f1f4f8'));
@@ -499,6 +507,30 @@ function caricaConsumi(){
       });
       el.innerHTML=html;
     }).catch(function(){ el.innerHTML='<p class="vuoto">Non riesco a leggere i consumi adesso.</p>'; });
+}
+
+function caricaReport(){
+  var el=document.getElementById('report-elenco');
+  fetch(SUPA+'/rest/v1/rag_report?select=*&order=creato_il.desc',{headers:H()})
+    .then(function(r){return r.json();})
+    .then(function(righe){
+      righe=righe||[];
+      if(!righe.length){ el.innerHTML='<p class="vuoto">Nessun report ancora.</p>'; return; }
+      var perSettimana={};
+      righe.forEach(function(r){
+        var k=(r.agente||'—')+' · '+(r.settimana||'—');
+        if(!perSettimana[k]) perSettimana[k]=[];
+        perSettimana[k].push(r);
+      });
+      var html='';
+      Object.keys(perSettimana).forEach(function(k){
+        html+='<div class="card"><h2>'+esc(k)+'</h2><ul style="margin:4px 0;padding-left:20px">'+
+          perSettimana[k].map(function(r){
+            return '<li><a href="'+esc(r.url)+'" target="_blank" rel="noopener">'+esc(r.canale||r.titolo)+'</a></li>';
+          }).join('')+'</ul></div>';
+      });
+      el.innerHTML=html;
+    }).catch(function(){ el.innerHTML='<p class="vuoto">Non riesco a leggere i report adesso.</p>'; });
 }
 
 function avvia(){

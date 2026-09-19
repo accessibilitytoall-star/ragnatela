@@ -1,0 +1,262 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Piano editoriale Social — 21–27 settembre 2026 | AccessibilityToAll</title>
+<style>
+  :root{
+    --blu:#0C6CD3; --arancio:#EF8216; --grigio:#5A636B; --grigio-light:#95A5A6;
+    --beige:#F3ECDD; --testo:#1A1A1A; --bianco:#FFFFFF;
+  }
+  *{box-sizing:border-box;}
+  body{
+    font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+    background:var(--bianco); color:var(--testo); line-height:1.6;
+    margin:0; padding:0; font-size:17px;
+  }
+  .skip-link{position:absolute; left:-999px; top:0; background:var(--blu); color:#fff; padding:.6rem 1rem; z-index:100; border-radius:0 0 6px 0;}
+  .skip-link:focus{left:0;}
+  .wrap{max-width:1100px; margin:0 auto; padding:2rem 1.5rem 4rem;}
+  header.top{border-bottom:4px solid var(--arancio); padding-bottom:1rem; margin-bottom:1.5rem;}
+  .kicker{color:var(--blu); font-weight:700; text-transform:uppercase; letter-spacing:.05em; font-size:.85rem;}
+  h1{font-size:1.9rem; line-height:1.25; margin:.3rem 0 .2rem;}
+  .meta{color:var(--grigio); font-size:.95rem;}
+  h2{font-size:1.4rem; color:var(--blu); margin-top:2.4rem; padding-bottom:.3rem; border-bottom:2px solid var(--beige);}
+  h3{font-size:1.15rem; color:var(--testo); margin-top:1.6rem;}
+  .bozza{background:#fff4e8; border:3px solid var(--arancio); border-radius:10px; padding:1.1rem 1.4rem; margin:0 0 1.6rem; font-size:1.05rem;}
+  .bozza strong{color:#a35400;}
+  .sintesi{background:var(--beige); border-left:6px solid var(--blu); padding:1.2rem 1.4rem; border-radius:8px; margin:1rem 0 1.5rem;}
+  .sintesi p{margin:.5rem 0;}
+  .badge{display:inline-block; background:var(--blu); color:#fff; font-weight:700; padding:.15rem .6rem; border-radius:4px; font-size:.95rem;}
+  .clou-badge{display:inline-block; background:var(--arancio); color:#fff; font-weight:700; padding:.1rem .5rem; border-radius:4px; font-size:.78rem; margin-left:.4rem; vertical-align:middle;}
+  .tier1{background:var(--blu); color:#fff; display:inline-block; font-size:.72rem; font-weight:700; padding:.05rem .45rem; border-radius:4px;}
+  .tier2, .tier3{background:var(--grigio-light); color:#1A1A1A; display:inline-block; font-size:.72rem; font-weight:700; padding:.05rem .45rem; border-radius:4px;}
+  .table-wrap{overflow-x:auto; margin:1rem 0;}
+  table{border-collapse:collapse; width:100%; min-width:760px; font-size:.92rem;}
+  caption{text-align:left; font-weight:700; color:var(--testo); margin-bottom:.5rem; font-size:1.02rem; caption-side:top;}
+  caption .count{color:var(--grigio); font-weight:400; font-size:.85rem;}
+  th,td{border:1px solid #cfd6db; padding:.6rem .7rem; vertical-align:top; text-align:left;}
+  thead th{background:var(--blu); color:#fff;}
+  tbody tr:nth-child(even){background:#f5f8fc;}
+  tr.clou{background:#fff4e8 !important;}
+  .stato{display:inline-block; font-weight:700; font-size:.82rem; padding:.15rem .55rem; border-radius:4px; background:var(--grigio-light); color:#1A1A1A;}
+  .day-block{margin:2.2rem 0;}
+  .day-head{display:flex; align-items:baseline; gap:.6rem; flex-wrap:wrap;}
+  .day-head h3{margin:0;}
+  .legenda{display:grid; grid-template-columns:1fr 1fr; gap:1.5rem; margin:1rem 0 2rem;}
+  @media (max-width:700px){ .legenda{grid-template-columns:1fr;} }
+  .legenda table{font-size:.85rem; min-width:0;}
+  .nota-produzione{background:#f5f8fc; border-left:6px solid var(--grigio-light); padding:1rem 1.3rem; border-radius:8px; margin:1rem 0;}
+  .nota-produzione ol{margin:.5rem 0 0; padding-left:1.3rem;}
+  .nota-produzione li{margin:.35rem 0;}
+  .prossimo{background:#eef6ee; border-left:6px solid #2e7d32; padding:1.1rem 1.4rem; border-radius:8px; margin:2rem 0 1rem;}
+  footer{margin-top:3rem; padding-top:1rem; border-top:2px solid var(--beige); color:var(--grigio); font-size:.85rem;}
+  .print-btn{background:var(--blu); color:#fff; border:none; padding:.6rem 1.1rem; border-radius:6px; font-size:.95rem; font-weight:700; cursor:pointer; margin:.5rem 0 1.5rem;}
+  .print-btn:hover, .print-btn:focus{background:#094f9e;}
+  @media print{
+    body{font-size:12pt;}
+    .skip-link, .print-btn{display:none;}
+    h2{break-after:avoid;}
+    .day-block{break-inside:avoid;}
+    table{break-inside:auto;} tr{break-inside:avoid;}
+    a{color:var(--testo); text-decoration:underline;}
+    .bozza{border-width:2px;}
+  }
+</style>
+</head>
+<body>
+<a class="skip-link" href="#contenuto">Salta al contenuto principale</a>
+<div class="wrap">
+
+<header class="top">
+  <p class="kicker">AccessibilityToAll · Social · Piano editoriale settimanale</p>
+  <h1 id="contenuto">Piano editoriale Social — settimana 21–27 settembre 2026</h1>
+  <p class="meta">Agente: <strong>Social</strong> · Target: <strong>commerciale</strong> · 9 canali (Tier 1: LinkedIn, Facebook, Instagram, X · Tier 2: YouTube, TikTok · Tier 3: Google Business Profile, Threads, Pinterest) · Generato: 19 settembre 2026, da <code>piano-editoriale-social</code> a partire dalla ricerca settimanale già completata.</p>
+</header>
+
+<div class="bozza" role="note">
+  <strong>Bozza in attesa di approvazione — nessun contenuto è stato ancora scritto né programmato.</strong>
+  <p style="margin:.5rem 0 0;">Questo è il calendario proposto (data, canale, filone, formato, gancio, CTA). Nessun testo di post è stato redatto, nessuna immagine creata, nessuna pubblicazione programmata su Postpickr. Beatrice approva prima che si passi alla scrittura dei singoli post.</p>
+</div>
+
+<button class="print-btn" onclick="window.print()" type="button">🖶 Stampa / salva come PDF</button>
+
+<section aria-labelledby="h-sintesi">
+  <h2 id="h-sintesi">Sintesi della settimana</h2>
+  <div class="sintesi">
+    <p><span class="badge">Momento clou</span>&nbsp; <strong>23 settembre 2026</strong> — scadenza della dichiarazione di accessibilità AgID (vigilanza, Determinazione 84/2026) <em>e</em> Giornata Internazionale della Lingua dei Segni, nello stesso giorno. È l'aggancio comune a tutti e 9 i canali questa settimana, con angolo e formato diversi per pubblico e tier.</p>
+    <p><strong>Tono:</strong> urgenza misurata + opportunità, mai allarmismo; la Diagnosi EAA come primo passo concreto. Nessun tono pietistico sulla Giornata della Lingua dei Segni: il target resta sempre commerciale (aziende), il target Ambassador è di un altro agente.</p>
+    <p><strong>Uscite pianificate:</strong> 26 uscite su 9 canali, distribuite lun–ven (nessuna pubblicazione nel weekend). Picco naturale mercoledì 23/9 (9 uscite, il giorno clou), con una crescita da lunedì e una coda venerdì per chiudere la settimana.</p>
+    <p><strong>Equilibrio dei filoni:</strong> Tip pratici (7) · News &amp; trend (4) · Mito da sfatare (4) · Normativa in chiaro (3) · Prima/Dopo (3) · Q&amp;A (3) · Caso studio (1, combinato con Q&amp;A su Facebook) · Dietro le quinte (1). La settimana pesa più su Normativa/News per via della doppia scadenza del 23/9; le prossime settimane, senza un momento clou equivalente, torneranno a un mix più orientato a Tip/Prima-Dopo/Dietro le quinte.</p>
+  </div>
+</section>
+
+<section aria-labelledby="h-produzione">
+  <h2 id="h-produzione">Come si arriva a queste uscite: il ritmo di produzione</h2>
+  <div class="nota-produzione">
+    <p>Segue <code>FLUSSO OPERATIVO - Social.md</code>: la ricerca è unica (fatta lunedì 19/9 su tutti i canali), da qui in poi solo produzione, <strong>massimo 2 canali al giorno</strong>, priorità Tier 1 prima.</p>
+    <ol>
+      <li><strong>Lunedì 21/9</strong> — produzione: <strong>LinkedIn, Facebook</strong> (Tier 1, priorità 1–2).</li>
+      <li><strong>Martedì 22/9</strong> — produzione: <strong>Instagram, X</strong> (Tier 1, priorità 3–4).</li>
+      <li><strong>Mercoledì 23/9</strong> — produzione: <strong>YouTube, TikTok</strong> (Tier 2) + ads Facebook in collaborazione col Marketing.</li>
+      <li><strong>Giovedì 24/9</strong> — produzione dei canali rimanenti: <strong>Google Business Profile, Threads, Pinterest</strong> (Tier 3) + completamento della scheda di approvazione da sottoporre a Beatrice.</li>
+      <li><strong>Venerdì 25/9</strong> — nessuna nuova produzione: solo programmazione finale su Postpickr di tutta la settimana, <em>una volta approvata</em>. In questa bozza la programmazione non è stata eseguita.</li>
+    </ol>
+    <p style="margin-top:.8rem;"><strong>Nota:</strong> essendo il primo giro reale (la ricerca di questa settimana è stata fatta il 19/9, a ridosso della settimana stessa), produzione e pubblicazione ricadono nella stessa settimana 21–27/9. Per questo alcune uscite pensate per "prima del 23/9" (in particolare il tutorial YouTube e lo short TikTok) escono comunque il 23–24/9, perché il canale è prodotto solo da mercoledì in base all'ordine Tier 1 → Tier 2/3. Dal prossimo ciclo, lavorando con una settimana di anticipo come da flusso operativo, questi contenuti potranno uscire realmente in anticipo rispetto alla scadenza che raccontano.</p>
+  </div>
+</section>
+
+<section aria-labelledby="h-legenda">
+  <h2 id="h-legenda">Legenda</h2>
+  <div class="legenda">
+    <div>
+      <h3>Filoni / rubriche</h3>
+      <div class="table-wrap">
+        <table>
+          <caption>Le 8 rubriche di Social</caption>
+          <thead><tr><th scope="col">Rubrica</th><th scope="col">Obiettivo</th></tr></thead>
+          <tbody>
+            <tr><td>Normativa in chiaro</td><td>Urgenza + autorevolezza</td></tr>
+            <tr><td>Prima / Dopo</td><td>Dimostrare il valore</td></tr>
+            <tr><td>Caso studio</td><td>Prova sociale</td></tr>
+            <tr><td>Tip pratici</td><td>Utilità + reach</td></tr>
+            <tr><td>Mito da sfatare</td><td>Cambiare prospettiva</td></tr>
+            <tr><td>Dietro le quinte</td><td>Fiducia e relazione</td></tr>
+            <tr><td>Q&amp;A della settimana</td><td>Coinvolgimento</td></tr>
+            <tr><td>News &amp; trend</td><td>Attualità</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+    <div>
+      <h3>Canali e tier</h3>
+      <div class="table-wrap">
+        <table>
+          <caption>I 9 canali di questa settimana</caption>
+          <thead><tr><th scope="col">Canale</th><th scope="col">Tier</th></tr></thead>
+          <tbody>
+            <tr><td>LinkedIn</td><td><span class="tier1">Tier 1</span></td></tr>
+            <tr><td>Facebook</td><td><span class="tier1">Tier 1</span></td></tr>
+            <tr><td>Instagram</td><td><span class="tier1">Tier 1</span></td></tr>
+            <tr><td>X</td><td><span class="tier1">Tier 1</span></td></tr>
+            <tr><td>YouTube</td><td><span class="tier2">Tier 2</span></td></tr>
+            <tr><td>TikTok</td><td><span class="tier2">Tier 2</span></td></tr>
+            <tr><td>Google Business Profile</td><td><span class="tier3">Tier 3</span></td></tr>
+            <tr><td>Threads</td><td><span class="tier3">Tier 3</span></td></tr>
+            <tr><td>Pinterest</td><td><span class="tier3">Tier 3</span></td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+  <p class="meta">Le righe evidenziate in arancio chiaro nel calendario sotto sono le uscite del <strong>momento clou (23 settembre)</strong>.</p>
+</section>
+
+<section aria-labelledby="h-calendario">
+  <h2 id="h-calendario">Calendario — settimana 21–27 settembre 2026</h2>
+
+  <div class="day-block">
+    <div class="day-head"><h3>Lunedì 21 settembre</h3></div>
+    <div class="table-wrap">
+      <table>
+        <caption>Lunedì 21/9 <span class="count">— 1 uscita</span></caption>
+        <thead><tr><th scope="col">Canale</th><th scope="col">Filone</th><th scope="col">Formato</th><th scope="col">Gancio</th><th scope="col">CTA</th><th scope="col">Prodotto il</th><th scope="col">Stato</th></tr></thead>
+        <tbody>
+          <tr><td>Facebook</td><td>Tip pratici</td><td>Reel nativo</td><td>3 segnali che il tuo sito non è accessibile</td><td>Salva questo reel e controlla il tuo sito</td><td>Lun 21/9</td><td><span class="stato">Da fare</span></td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <div class="day-block">
+    <div class="day-head"><h3>Martedì 22 settembre</h3></div>
+    <div class="table-wrap">
+      <table>
+        <caption>Martedì 22/9 <span class="count">— 4 uscite</span></caption>
+        <thead><tr><th scope="col">Canale</th><th scope="col">Filone</th><th scope="col">Formato</th><th scope="col">Gancio</th><th scope="col">CTA</th><th scope="col">Prodotto il</th><th scope="col">Stato</th></tr></thead>
+        <tbody>
+          <tr><td>LinkedIn</td><td>News &amp; trend</td><td>Post testo</td><td>AgID ha un percorso tracciato dal reclamo alla sanzione: cosa cambia da adesso</td><td>Scopri se la tua Diagnosi EAA è aggiornata</td><td>Lun 21/9</td><td><span class="stato">Da fare</span></td></tr>
+          <tr><td>Facebook</td><td>Normativa in chiaro</td><td>Post</td><td>Chi è davvero obbligato all'EAA (spiegato semplice)</td><td>Scrivici se hai dubbi sulla tua attività</td><td>Lun 21/9</td><td><span class="stato">Da fare</span></td></tr>
+          <tr><td>Instagram</td><td>Prima / Dopo</td><td>Carosello</td><td>Un elemento del sito reso accessibile, effetto "wow"</td><td>Scorri per vedere la trasformazione</td><td>Mar 22/9</td><td><span class="stato">Da fare</span></td></tr>
+          <tr><td>X</td><td>Tip pratici</td><td>Post</td><td>Un dato/fonte ufficiale sulla vigilanza AgID</td><td>Leggi la fonte e ripubblicala</td><td>Mar 22/9</td><td><span class="stato">Da fare</span></td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <div class="day-block">
+    <div class="day-head"><h3>Mercoledì 23 settembre <span class="clou-badge">MOMENTO CLOU</span></h3></div>
+    <p class="meta">Scadenza dichiarazione di accessibilità AgID + Giornata Internazionale della Lingua dei Segni. Giorno di massima concentrazione: 9 uscite su 7 canali.</p>
+    <div class="table-wrap">
+      <table>
+        <caption>Mercoledì 23/9 <span class="count">— 9 uscite</span></caption>
+        <thead><tr><th scope="col">Canale</th><th scope="col">Filone</th><th scope="col">Formato</th><th scope="col">Gancio</th><th scope="col">CTA</th><th scope="col">Prodotto il</th><th scope="col">Stato</th></tr></thead>
+        <tbody>
+          <tr class="clou"><td>LinkedIn</td><td>Normativa in chiaro (pilastro)</td><td>Carosello 5–15 slide</td><td>23 settembre: due scadenze, un solo controllo da fare</td><td>Richiedi la tua Diagnosi EAA</td><td>Lun 21/9</td><td><span class="stato">Da fare</span></td></tr>
+          <tr class="clou"><td>LinkedIn</td><td>News &amp; trend</td><td>Post testo</td><td>Giornata Lingua dei Segni (23/9): cosa significa per la comunicazione della tua azienda</td><td>Dimmi cosa ne pensi nei commenti</td><td>Lun 21/9</td><td><span class="stato">Da fare</span></td></tr>
+          <tr class="clou"><td>Facebook</td><td>Caso studio / Q&amp;A (pilastro)</td><td>Post nativo + gruppi di settore</td><td>Sai se la tua azienda deve fare la dichiarazione di accessibilità entro il 23/9?</td><td>Chiedi un confronto gratuito</td><td>Lun 21/9</td><td><span class="stato">Da fare</span></td></tr>
+          <tr class="clou"><td>Instagram</td><td>Tip pratici (pilastro)</td><td>Carosello checklist</td><td>5 domande per capire se devi fare la dichiarazione di accessibilità</td><td>Salva il carosello e fai il check</td><td>Mar 22/9</td><td><span class="stato">Da fare</span></td></tr>
+          <tr class="clou"><td>Instagram</td><td>Q&amp;A della settimana</td><td>Storie</td><td>Mini Q&amp;A raccolta su scadenza e dichiarazione</td><td>Rispondi con la tua domanda nel box storie</td><td>Mar 22/9</td><td><span class="stato">Da fare</span></td></tr>
+          <tr class="clou"><td>X</td><td>News &amp; trend (pilastro)</td><td>Thread 4–5 tweet</td><td>23 settembre: cosa scade davvero (e chi deve preoccuparsene)</td><td>Repost se conosci chi è a rischio</td><td>Mar 22/9</td><td><span class="stato">Da fare</span></td></tr>
+          <tr class="clou"><td>X</td><td>News &amp; trend</td><td>Post singolo</td><td>Collegamento scadenza + Giornata Lingua dei Segni</td><td>Rispondi con la tua opinione</td><td>Mar 22/9</td><td><span class="stato">Da fare</span></td></tr>
+          <tr class="clou"><td>YouTube</td><td>Tip/Tutorial (pilastro)</td><td>Video medio 4–8 min</td><td>Come verificare se devi fare la dichiarazione di accessibilità</td><td>Guarda il video e verifica subito</td><td>Mer 23/9</td><td><span class="stato">Da fare</span></td></tr>
+          <tr class="clou"><td>TikTok</td><td>Tip rapidi (pilastro)</td><td>Short 20–30s</td><td>Hai un sito aziendale? Ecco se devi fare la dichiarazione entro il 23/9</td><td>Segui per altri check veloci</td><td>Mer 23/9</td><td><span class="stato">Da fare</span></td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <div class="day-block">
+    <div class="day-head"><h3>Giovedì 24 settembre</h3></div>
+    <p class="meta">Coda del momento clou + produzione dei 3 canali Tier 3 rimasti + completamento scheda di approvazione.</p>
+    <div class="table-wrap">
+      <table>
+        <caption>Giovedì 24/9 <span class="count">— 8 uscite</span></caption>
+        <thead><tr><th scope="col">Canale</th><th scope="col">Filone</th><th scope="col">Formato</th><th scope="col">Gancio</th><th scope="col">CTA</th><th scope="col">Prodotto il</th><th scope="col">Stato</th></tr></thead>
+        <tbody>
+          <tr><td>LinkedIn</td><td>Dietro le quinte</td><td>Post testo</td><td>La prima cosa che Beatrice guarda in una Diagnosi EAA</td><td>Prenota una chiacchierata conoscitiva</td><td>Lun 21/9</td><td><span class="stato">Da fare</span></td></tr>
+          <tr><td>Facebook</td><td>Q&amp;A della settimana</td><td>Post</td><td>Le domande più comuni sulla dichiarazione di accessibilità</td><td>Lascia la tua domanda nei commenti</td><td>Lun 21/9</td><td><span class="stato">Da fare</span></td></tr>
+          <tr><td>Instagram</td><td>Mito da sfatare</td><td>Reel</td><td>Un mito sull'accessibilità, agganciato alla Giornata Lingua dei Segni</td><td>Segui per il prossimo mito sfatato</td><td>Mar 22/9</td><td><span class="stato">Da fare</span></td></tr>
+          <tr><td>YouTube</td><td>Tip/Tutorial</td><td>Short</td><td>3 modi per capire se sei obbligato, in 30 secondi</td><td>Iscriviti per il prossimo tutorial</td><td>Mer 23/9</td><td><span class="stato">Da fare</span></td></tr>
+          <tr><td>TikTok</td><td>Mito da sfatare</td><td>Short</td><td>Un mito, agganciato alla Giornata Lingua dei Segni</td><td>Commenta il prossimo mito da sfatare</td><td>Mer 23/9</td><td><span class="stato">Da fare</span></td></tr>
+          <tr><td>Google Business Profile</td><td>Normativa in chiaro (pilastro)</td><td>Post aggiornamento</td><td>Diagnosi EAA disponibile ora, a ridosso della scadenza del 23/9</td><td>Contattaci per la Diagnosi EAA</td><td>Gio 24/9</td><td><span class="stato">Da fare</span></td></tr>
+          <tr><td>Threads</td><td>Q&amp;A della settimana (pilastro)</td><td>Post colloquiale</td><td>Lo sapevi che il 23/9 scade la dichiarazione di accessibilità? Chiedimi pure</td><td>Chiedimi pure nei commenti</td><td>Gio 24/9</td><td><span class="stato">Da fare</span></td></tr>
+          <tr><td>Pinterest</td><td>Tip/infografiche (pilastro)</td><td>Pin checklist</td><td>5 cose da controllare per l'accessibilità del tuo sito</td><td>Salva il pin per dopo</td><td>Gio 24/9</td><td><span class="stato">Da fare</span></td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <div class="day-block">
+    <div class="day-head"><h3>Venerdì 25 settembre</h3></div>
+    <p class="meta">Nessuna nuova produzione: chiusura della settimana con le ultime uscite già pronte, mentre si programma (in bozza) tutto il resto su Postpickr.</p>
+    <div class="table-wrap">
+      <table>
+        <caption>Venerdì 25/9 <span class="count">— 4 uscite</span></caption>
+        <thead><tr><th scope="col">Canale</th><th scope="col">Filone</th><th scope="col">Formato</th><th scope="col">Gancio</th><th scope="col">CTA</th><th scope="col">Prodotto il</th><th scope="col">Stato</th></tr></thead>
+        <tbody>
+          <tr><td>LinkedIn</td><td>Mito da sfatare</td><td>Post testo</td><td>"Tanto i controlli non partiranno mai": perché è un errore, un anno dopo</td><td>Condividi con chi pensa di essere al sicuro</td><td>Lun 21/9</td><td><span class="stato">Da fare</span></td></tr>
+          <tr><td>YouTube</td><td>Prima / Dopo</td><td>Video (se materiale disponibile)</td><td>Un intervento di accessibilità raccontato passo passo</td><td>Guarda la trasformazione completa</td><td>Mer 23/9</td><td><span class="stato">Da fare — materiale da verificare</span></td></tr>
+          <tr><td>Threads</td><td>Mito da sfatare</td><td>Post</td><td>Versione colloquiale del mito trattato su Instagram</td><td>Dimmi cosa ne pensi</td><td>Gio 24/9</td><td><span class="stato">Da fare</span></td></tr>
+          <tr><td>Pinterest</td><td>Prima / Dopo</td><td>Pin</td><td>Infografica Prima/Dopo di un intervento di accessibilità</td><td>Salva e confronta il prima/dopo</td><td>Gio 24/9</td><td><span class="stato">Da fare</span></td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <p class="meta"><strong>Sabato 26 e domenica 27 settembre</strong> — nessuna uscita pianificata: weekend libero, come da flusso operativo.</p>
+</section>
+
+<div class="prossimo">
+  <h2 style="margin-top:0; border:none; color:#1b5e20;">Passo successivo (dopo l'approvazione di Beatrice)</h2>
+  <p>Per scrivere i singoli post di questa lista, si passa a <code>post-social-accessibile</code> — oppure, canale per canale, alle skill già esistenti di Social: <code>titoli-post</code> → <code>body-post</code> → <code>cta-post</code> (poi <code>immagini-post</code> e <code>reel-video</code> dove previsto). Solo dopo la scheda di approvazione e il sì di Beatrice si passa a <code>postpickr-pubblicazione</code>.</p>
+</div>
+
+<footer>
+  <p>AccessibilityToAll SRL · Piano generato da <code>piano-editoriale-social</code> a partire dalla ricerca settimanale (<code>ricerca-settimanale</code>) del 19/09/2026. Fonti dettagliate nei 9 report <code>🔍 - ricerca-{canale}-sett-2026-09-21.html</code> nella stessa cartella.</p>
+</footer>
+
+</div>
+</body>
+</html>

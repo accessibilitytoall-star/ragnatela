@@ -516,18 +516,22 @@ function caricaReport(){
     .then(function(righe){
       righe=righe||[];
       if(!righe.length){ el.innerHTML='<p class="vuoto">Nessun report ancora.</p>'; return; }
-      var perSettimana={};
+      var gruppi={}, chiavi=[];
       righe.forEach(function(r){
-        var k=(r.agente||'—')+' · '+(r.settimana||'—');
-        if(!perSettimana[k]) perSettimana[k]=[];
-        perSettimana[k].push(r);
+        var k=(r.agente||'—')+'|'+(r.settimana||'—');
+        if(!gruppi[k]){ gruppi[k]=[]; chiavi.push(k); }
+        gruppi[k].push(r);
       });
+      chiavi.sort(function(a,b){ return b.split('|')[1].localeCompare(a.split('|')[1]); });
       var html='';
-      Object.keys(perSettimana).forEach(function(k){
-        html+='<div class="card"><h2>'+esc(k)+'</h2><ul style="margin:4px 0;padding-left:20px">'+
-          perSettimana[k].map(function(r){
+      chiavi.forEach(function(k,i){
+        var parti=k.split('|'), agente=parti[0], settimana=parti[1];
+        html+='<details class="card"'+(i===0?' open':'')+'><summary style="cursor:pointer;font-size:17px;font-weight:700">'+
+          esc(agente)+' · '+esc(settimana)+'</summary>'+
+          '<ul style="margin:8px 0 0;padding-left:20px">'+
+          gruppi[k].map(function(r){
             return '<li><a href="'+esc(r.url)+'" target="_blank" rel="noopener">'+esc(r.canale||r.titolo)+'</a></li>';
-          }).join('')+'</ul></div>';
+          }).join('')+'</ul></details>';
       });
       el.innerHTML=html;
     }).catch(function(){ el.innerHTML='<p class="vuoto">Non riesco a leggere i report adesso.</p>'; });
